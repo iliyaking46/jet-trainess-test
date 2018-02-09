@@ -1,11 +1,308 @@
-class HelloWorld {
-  message = 'Hello World';
-  print = () => this.message;
-}
+// наши данные таблицы
 
-const hello = new HelloWorld();
-// eslint-disable-next-line no-console
-console.log(
-  `%c ${hello.print()}`,
-  `color: green; font-size:48px; weight: bold`,
-);
+// import makeTable from './modules/table';
+import { makeTable } from './modules/table';
+
+const dataSet = [
+  {
+    Name: 'Tiger Nixon',
+    Position: 'System Architect',
+    City: 'Edinburgh',
+    Code: '5421',
+    Date: '2011/04/25',
+    Salary: '$320,800',
+  },
+  {
+    Name: 'Garrett Winters',
+    Position: 'Accountant',
+    City: 'Tokyo',
+    Code: '8422',
+    Date: '2011/07/25',
+    Salary: '$170,750',
+  },
+  {
+    Name: 'Ashton Cox',
+    Position: 'Junior Technical Author',
+    City: 'San Francisco',
+    Code: '1562',
+    Date: '2009/01/12',
+    Salary: '$86,000',
+  },
+  {
+    Name: 'Cedric Kelly',
+    Position: 'Senior Javascript Developer',
+    City: 'Edinburgh',
+    Code: '6224',
+    Date: '2012/03/29',
+    Salary: '$433,060',
+  },
+  {
+    Name: 'Airi Satou',
+    Position: 'Accountant',
+    City: 'Tokyo',
+    Code: '5407',
+    Date: '2008/11/28',
+    Salary: '$162,700',
+  },
+  {
+    Name: 'Brielle Williamson',
+    Position: 'Integration Specialist',
+    City: 'New York',
+    Code: '4804',
+    Datr: '2012/12/02',
+    Salary: '$372,000',
+  },
+  {
+    Name: 'Herrod Chandler',
+    Position: 'Sales Assistant',
+    City: 'San Francisco',
+    Code: '9608',
+    Date: '2012/08/06',
+    Salary: '$137,500',
+  },
+  {
+    Name: 'Rhona Davidson',
+    Position: 'Integration Specialist',
+    City: 'Tokyo',
+    Code: '6200',
+    Date: '2010/10/14',
+    Salary: '$327,900',
+  },
+  {
+    Name: 'Colleen Hurst',
+    Position: 'Javascript Developer',
+    City: 'San Francisco',
+    Code: '2360',
+    Date: '2009/09/15',
+    Salary: '$205,500',
+  },
+  {
+    Name: 'Sonya Frost',
+    Position: 'Software Engineer',
+    City: 'Edinburgh',
+    Code: '1667',
+    Date: '2008/12/13',
+    Salary: '$103,600',
+  },
+  {
+    Name: 'Jena Gaines',
+    Position: 'Office Manager',
+    City: 'London',
+    Code: '3814',
+    Date: '2008/12/19',
+    Salary: '$90,560',
+  },
+  {
+    Name: 'Quinn Flynn',
+    Position: 'Support Lead',
+    City: 'Edinburgh',
+    Code: '9497',
+    Date: '2013/03/03',
+    Salary: '$342,000',
+  },
+  {
+    Name: 'Charde Marshall',
+    Position: 'Regional Director',
+    City: 'San Francisco',
+    Code: '6741',
+    Date: '2008/10/16',
+    Salary: '$470,600',
+  },
+  {
+    Name: 'Haley Kennedy',
+    Position: 'Senior Marketing Designer',
+    City: 'London',
+    Code: '3597',
+    Date: '2012/12/18',
+    Salary: '$313,500',
+  },
+  {
+    Name: 'Tatyana Fitzpatrick',
+    Position: 'Regional Director',
+    City: 'London',
+    Code: '1965',
+    Date: '2010/03/17',
+    Salary: '$385,750',
+  },
+  {
+    Name: 'Michael Silva',
+    Position: 'Marketing Designer',
+    City: 'London',
+    Code: '1581',
+    Date: '2012/11/27',
+    Salary: '$198,500',
+  },
+  {
+    Name: 'Paul Byrd',
+    Position: 'Chief Financial Officer (CFO)',
+    City: 'New York',
+    Code: '3059',
+    Date: '2010/06/09',
+    Salary: '$725,000',
+  },
+  {
+    Name: 'Gloria Little',
+    Position: 'Systems Administrator',
+    City: 'New York',
+    Code: '1721',
+    Date: '2009/04/10',
+    Salary: '$237,500',
+  },
+  {
+    Name: 'Bradley Greer',
+    Position: 'Software Engineer',
+    City: 'London',
+    Code: '2558',
+    Date: '2012/10/13',
+    Salary: '$132,000',
+  },
+  {
+    Name: 'Dai Rios',
+    Position: 'Personnel Lead',
+    City: 'Edinburgh',
+    Code: '2290',
+    Date: '2012/09/26',
+    Salary: '$217,500',
+  },
+  {
+    Name: 'Jenette Caldwell',
+    Position: 'Development Lead',
+    City: 'New York',
+    Code: '1937',
+    Date: '2011/09/03',
+    Salary: '$345,000',
+  },
+  {
+    Name: 'Yuri Berry',
+    Position: 'Chief Marketing Officer (CMO)',
+    City: 'New York',
+    Code: '6154',
+    Date: '2009/06/25',
+    Salary: '$675,000',
+  },
+  {
+    Name: 'Caesar Vance',
+    Position: 'Pre-Sales Support',
+    City: 'New York',
+    Code: '8330',
+    Date: '2011/12/12',
+    Salary: '$106,450',
+  },
+  {
+    Name: 'Doris Wilder',
+    Position: 'Sales Assistant',
+    City: 'Sidney',
+    Code: '3023',
+    Date: '2010/09/20',
+    Salary: '$85,600',
+  },
+  {
+    Name: 'Angelica Ramos',
+    Position: 'Chief Executive Officer (CEO)',
+    City: 'London',
+    Code: '5797',
+    Date: '2009/10/09',
+    Salary: '$1,200,000',
+  },
+  {
+    Name: 'Gavin Joyce',
+    Position: 'Developer',
+    City: 'Edinburgh',
+    Code: '8822',
+    Date: '2010/12/22',
+    Salary: '$92,575',
+  },
+  {
+    Name: 'Jennifer Chang',
+    Position: 'Regional Director',
+    City: 'Singapore',
+    Code: '9239',
+    Date: '2010/11/14',
+    Salary: '$357,650',
+  },
+  {
+    Name: 'Brenden Wagner',
+    Position: 'Software Engineer',
+    City: 'San Francisco',
+    Code: '1314',
+    Date: '2011/06/07',
+    Salary: '$206,850',
+  },
+  {
+    Name: 'Fiona Green',
+    Position: 'Chief Operating Officer (COO)',
+    City: 'San Francisco',
+    Code: '2947',
+    Date: '2010/03/11',
+    Salary: '$850,000',
+  },
+  {
+    Name: 'Shou Itou',
+    Position: 'Regional Marketing',
+    City: 'Tokyo',
+    Code: '8899',
+    Date: '2011/08/14',
+    Salary: '$163,000',
+  },
+  {
+    Name: 'Michelle House',
+    Position: 'Integration Specialist',
+    City: 'Sidney',
+    Code: '2769',
+    Date: '2011/06/02',
+    Salary: '$95,400',
+  },
+  {
+    Name: 'Suki Burks',
+    Position: 'Developer',
+    City: 'London',
+    Code: '6832',
+    Date: '2009/10/22',
+    Salary: '$114,500',
+  },
+  {
+    Name: 'Prescott Bartlett',
+    Position: 'Technical Author',
+    City: 'London',
+    Code: '3606',
+    Date: '2011/05/07',
+    Salary: '$145,000',
+  },
+  {
+    Name: 'Gavin Cortez',
+    Position: 'Team Leader',
+    City: 'San Francisco',
+    Code: '2860',
+    Date: '2008/10/26',
+    Salary: '$235,500',
+  },
+  {
+    Name: 'Martena Mccray',
+    Position: 'Post-Sales support',
+    City: 'Edinburgh',
+    Code: '8240',
+    Date: '2011/03/09',
+    Salary: '$324,050',
+  },
+  {
+    Name: 'Unity Butler',
+    Position: 'Marketing Designer',
+    City: 'San Francisco',
+    Code: '5384',
+    Date: '2009/12/09',
+    Salary: '$85,675',
+  },
+];
+// заголовки таблицы
+makeTable(dataSet);
+
+// class HelloWorld {
+//   message = 'Hello World';
+//   print = () => this.message;
+// }
+// const hello = new HelloWorld();
+// // eslint-disable-next-line no-console
+// console.log(
+//   `%c ${hello.print()}`,
+//   `color: green; font-size:48px; weight: bold`,
+// );

@@ -1,5 +1,40 @@
 html {
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+.page-title {
+  text-align: center;
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.table-wrapper table {
+  border-collapse: collapse;
+}
+
+.table-wrapper thead th {
+  user-select: none;
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  cursor: pointer;
+}
+
+.table-wrapper thead th:first-child {
+  border-left: 1px solid #dee2e6;
+}
+
+.table-wrapper td,
+.table-wrapper th {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }
 
 *,
