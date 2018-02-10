@@ -1,6 +1,6 @@
 // создаем таблицу, даем id самой таблице и заговку
 
-function makeTable(dataSource) {
+export default function makeTable(dataSource) {
   const rows = 10;
 
   function createTable(data) {
@@ -136,4 +136,3 @@ function makeTable(dataSource) {
     createTbody(arr);
   }
 }
-export { makeTable };

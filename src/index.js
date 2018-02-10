@@ -1,7 +1,7 @@
 // наши данные таблицы
 
 // import makeTable from './modules/table';
-import { makeTable } from './modules/table';
+import table from './modules/table';
 
 const dataSet = [
   {
@@ -294,7 +294,7 @@ const dataSet = [
   },
 ];
 // заголовки таблицы
-makeTable(dataSet);
+table(dataSet);
 
 // class HelloWorld {
 //   message = 'Hello World';
