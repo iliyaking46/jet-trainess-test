@@ -26,20 +26,26 @@ function makeTable(dataSource) {
       contents += '</tr>';
     }
     tableTbody.innerHTML = contents;
+    document.getElementById('info').innerHTML =
+      'Amount of Employees: ' + dataSet.length;
     makePagination();
   }
 
   function makePagination() {
+    let table = document.getElementById('table');
     let pages = Math.ceil((table.rows.length - 1) / rows),
       contents = '';
     for (let i = 1; i < pages + 1; i++) {
-      contents += '<button type="button">' + i + '</button>';
+      contents +=
+        '<button type="button" class="page-button">' + i + '</button>';
     }
     document.getElementById('buttons').innerHTML = contents;
-    paging(1);
+    let pageBtn = document.getElementsByClassName('page-button')[0];
+    if (pageBtn) pageBtn.click();
   }
 
   function paging(page) {
+    let table = document.getElementById('table');
     let arr = [].slice.call(table.rows, 1);
     let firstElement = page * rows - rows,
       lastElement = page * rows - 1;
@@ -55,6 +61,13 @@ function makeTable(dataSource) {
       return;
     } else {
       paging(+event.target.innerHTML);
+      let buttons = [].slice.call(
+        document.getElementsByClassName('page-button'),
+      );
+      buttons.forEach(element => {
+        element.classList.remove('active');
+      });
+      event.target.classList.add('active');
     }
   });
 
@@ -123,5 +136,4 @@ function makeTable(dataSource) {
     createTbody(arr);
   }
 }
-
 export { makeTable };
