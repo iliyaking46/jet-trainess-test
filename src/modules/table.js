@@ -1,29 +1,70 @@
 // создаем таблицу, даем id самой таблице и заговку
 
-function makeTable(data) {
-  let tableHolder = document.getElementById('table-holder');
-  let contents = '<thead id="thead">';
-  for (let i in data[0]) {
-    contents += "<th data-order='asc'>" + i + '</th>';
-  }
-  contents += '</thead><tbody>';
-  for (let i = 0; i < data.length; i++) {
-    contents += '<tr>';
-    for (let elem in data[i]) {
-      contents += '<td>' + data[i][elem] + '</td>';
-    }
-    contents += '</tr>';
-  }
-  contents += '</tbody>';
-  tableHolder.innerHTML = '<table id="table">' + contents + '</table>';
+function makeTable(dataSource) {
+  const rows = 10;
 
+  function createTable(data) {
+    let tableHolder = document.getElementById('table-holder');
+    let contents = '<thead id="thead">';
+    for (let i in data[0]) {
+      contents += '<th data-order="asc">' + i + '</th>';
+    }
+    contents += '</thead><tbody id="tbody"></tbody>';
+    tableHolder.innerHTML = '<table id="table">' + contents + '</table>';
+    createTbody(data);
+  }
+
+  function createTbody(dataSet) {
+    let tableTbody = document.getElementById('tbody');
+    tableTbody.innerHTML = '';
+    let contents = '';
+    for (let i = 0; i < dataSet.length; i++) {
+      contents += '<tr>';
+      for (let elem in dataSet[i]) {
+        contents += '<td>' + dataSet[i][elem] + '</td>';
+      }
+      contents += '</tr>';
+    }
+    tableTbody.innerHTML = contents;
+    makePagination();
+  }
+
+  function makePagination() {
+    let pages = Math.ceil((table.rows.length - 1) / rows),
+      contents = '';
+    for (let i = 1; i < pages + 1; i++) {
+      contents += '<button type="button">' + i + '</button>';
+    }
+    document.getElementById('buttons').innerHTML = contents;
+    paging(1);
+  }
+
+  function paging(page) {
+    let arr = [].slice.call(table.rows, 1);
+    let firstElement = page * rows - rows,
+      lastElement = page * rows - 1;
+    for (let i = 0; i < arr.length; i++) {
+      if (i >= firstElement && i <= lastElement) {
+        arr[i].style = '';
+      } else arr[i].style.display = 'none';
+    }
+  }
+
+  document.getElementById('buttons').addEventListener('click', function(event) {
+    if (event.target.tagName != 'BUTTON') {
+      return;
+    } else {
+      paging(+event.target.innerHTML);
+    }
+  });
+
+  createTable(dataSource);
   let table = document.getElementById('table');
   let thead = document.getElementById('thead');
-  const dataTable = [].slice.call(table.rows, 1);
 
   // сортировка по возрастанию и убыванию
   function sort(cell, order) {
-    let arr = dataTable;
+    let arr = [].slice.call(table.rows, 1);
     if (order) {
       arr.sort((a, b) => {
         return a.cells[cell].innerHTML > b.cells[cell].innerHTML ? 1 : -1;
@@ -33,7 +74,8 @@ function makeTable(data) {
         return a.cells[cell].innerHTML < b.cells[cell].innerHTML ? 1 : -1;
       });
     }
-    table.append(...arr);
+    document.getElementById('tbody').append(...arr);
+    makePagination();
   }
 
   // вызов сортировки
@@ -46,11 +88,6 @@ function makeTable(data) {
       event.target.dataset.order = 'asc';
     }
   });
-
-  // function findWord(row) {
-  //   console.log(row, value);
-  //   return true;
-  // }
 
   let searchBtn = document.getElementById('search-btn');
   let searchValue = document.getElementById('search-value');
@@ -67,23 +104,23 @@ function makeTable(data) {
   });
 
   function search() {
-    let arr = dataTable;
-    let value = searchValue.value.toLowerCase();
-    let isTrue = true,
-      j = 0;
-    for (let i = 0; i < arr.length; i++) {
-      let td = arr[i].cells;
-      (j = 0), (isTrue = true);
-      while (isTrue && j < td.length) {
-        td[j].innerHTML.toLowerCase().indexOf(value) > -1
-          ? (isTrue = false)
-          : j++;
+    let arr = dataSource.slice(),
+      value = searchValue.value.toLowerCase();
+    for (let i = 0; i < arr.length; ) {
+      let isTrue = true;
+      for (let elem in arr[i]) {
+        if (arr[i][elem].toLowerCase().indexOf(value) > -1) {
+          isTrue = false;
+          break;
+        }
       }
-
-      isTrue == false
-        ? (arr[i].style.display = '')
-        : (arr[i].style.display = 'none');
+      if (isTrue == true) {
+        arr.splice(i, 1);
+      } else {
+        i++;
+      }
     }
+    createTbody(arr);
   }
 }
 

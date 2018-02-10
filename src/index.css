@@ -13,7 +13,9 @@ html {
   justify-content: center;
   margin: 2rem 0;
 }
-
+#info{
+  color: #ced4da;
+}
 input{
   display: block;
   width: 100%;
@@ -36,31 +38,33 @@ input:focus {
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 button{
-    display: inline-block;
-    margin-left: 1rem;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    cursor: pointer;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+display: inline-block;
+margin-left: 1rem;
+font-weight: 400;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+border: 1px solid transparent;
+padding: .375rem .75rem;
+font-size: 1rem;
+line-height: 1.5;
+border-radius: .25rem;
+color: #fff;
+background-color: #007bff;
+border-color: #007bff;
+cursor: pointer;
+transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
 button:focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
 }
+
 button:hover {
   color: #fff;
   background-color: #0069d9;
