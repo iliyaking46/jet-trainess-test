@@ -1,51 +1,60 @@
-// создаем таблицу, даем id самой таблице и заговку
+export default (originalData, options = {}) => {
+  const data = [...originalData];
+  const { rows = 10 } = options;
+  const tableContainer = document.getElementById('table-container');
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+  thead.setAttribute('id', 'thead');
 
-export default function makeTable(dataSource) {
-  const rows = 10;
+  const thNames = Object.keys(data[0]);
 
-  function createTable(data) {
-    let tableHolder = document.getElementById('table-holder');
-    let contents = '<thead id="thead">';
-    for (let i in data[0]) {
-      contents += '<th data-order="asc">' + i + '</th>';
-    }
-    contents += '</thead><tbody id="tbody"></tbody>';
-    tableHolder.innerHTML = '<table id="table">' + contents + '</table>';
-    createTbody(data);
-  }
+  thNames.forEach(thName => {
+    const thHead = document.createElement('th');
+    thHead.dataset.order = 'asc';
+    thHead.innerHTML = thName;
+    thead.appendChild(thHead);
+  });
+  table.append(thead);
+  createTbody();
+  tableContainer.appendChild(table);
+  table.append(thead, tbody);
 
-  function createTbody(dataSet) {
-    let tableTbody = document.getElementById('tbody');
-    tableTbody.innerHTML = '';
-    let contents = '';
-    for (let i = 0; i < dataSet.length; i++) {
-      contents += '<tr>';
-      for (let elem in dataSet[i]) {
-        contents += '<td>' + dataSet[i][elem] + '</td>';
-      }
-      contents += '</tr>';
-    }
-    tableTbody.innerHTML = contents;
-    document.getElementById('info').innerHTML =
-      'Amount of Employees: ' + dataSet.length;
+  function createTbody() {
+    const rows = data.reduce((acc, row) => {
+      const tr = document.createElement('tr');
+      Object.values(row).forEach(cell => {
+        const td = document.createElement('td');
+        td.innerHTML = cell;
+        tr.appendChild(td);
+      });
+      return [...acc, tr];
+    });
+    tbody.append(...rows);
+    // eslint-disable-next-line prettier/prettier
+    document.getElementById('info').innerHTML = `Amount of Employees: ' ${data.length}`;
     makePagination();
+    paging(1);
   }
 
   function makePagination() {
-    let table = document.getElementById('table');
-    let pages = Math.ceil((table.rows.length - 1) / rows),
-      contents = '';
+    const pages = Math.ceil(data.length / rows);
+    const buttons = [];
     for (let i = 1; i < pages + 1; i++) {
-      contents +=
-        '<button type="button" class="page-button">' + i + '</button>';
+      const button = document.createElement('button');
+      button.setAttribute('type', 'button');
+      button.className = 'page-button';
+      button.innerHTML = i;
+      button.dataset.page = i;
+      buttons.push(button);
     }
-    document.getElementById('buttons').innerHTML = contents;
-    let pageBtn = document.getElementsByClassName('page-button')[0];
-    if (pageBtn) pageBtn.click();
+    buttons[0].classList.add('active');
+    document.getElementById('buttons').append(...buttons);
+    // let pageBtn = document.getElementsByClassName('page-button')[0];
+    // if (pageBtn) pageBtn.click();
   }
 
   function paging(page) {
-    let table = document.getElementById('table');
     let arr = [].slice.call(table.rows, 1);
     let firstElement = page * rows - rows,
       lastElement = page * rows - 1;
@@ -60,20 +69,16 @@ export default function makeTable(dataSource) {
     if (event.target.tagName != 'BUTTON') {
       return;
     } else {
-      paging(+event.target.innerHTML);
-      let buttons = [].slice.call(
-        document.getElementsByClassName('page-button'),
-      );
-      buttons.forEach(element => {
+      const pageNumber = parseInt(event.target.dataset.page);
+      paging(pageNumber);
+      const buttons = document.getElementsByClassName('page-button');
+      const buttonsArr = Array.from(buttons);
+      buttonsArr.forEach(element => {
         element.classList.remove('active');
       });
       event.target.classList.add('active');
     }
   });
-
-  createTable(dataSource);
-  let table = document.getElementById('table');
-  let thead = document.getElementById('thead');
 
   // сортировка по возрастанию и убыванию
   function sort(cell, order) {
@@ -102,37 +107,37 @@ export default function makeTable(dataSource) {
     }
   });
 
-  let searchBtn = document.getElementById('search-btn');
-  let searchValue = document.getElementById('search-value');
+  // const searchBtn = document.getElementById('search-btn');
+  // const searchValue = document.getElementById('search-value');
 
   // поиск по enter
-  searchValue.addEventListener('keyup', function(e) {
-    if (e.keyCode == 13) {
-      search();
-    }
-  });
-  // поиск по кнопке
-  searchBtn.addEventListener('click', function() {
-    search();
-  });
+  // searchValue.addEventListener('keyup', function(e) {
+  //   if (e.keyCode == 13) {
+  //     search();
+  //   }
+  // });
+  // // поиск по кнопке
+  // searchBtn.addEventListener('click', function() {
+  //   search();
+  // });
 
-  function search() {
-    let arr = dataSource.slice(),
-      value = searchValue.value.toLowerCase();
-    for (let i = 0; i < arr.length; ) {
-      let isTrue = true;
-      for (let elem in arr[i]) {
-        if (arr[i][elem].toLowerCase().indexOf(value) > -1) {
-          isTrue = false;
-          break;
-        }
-      }
-      if (isTrue == true) {
-        arr.splice(i, 1);
-      } else {
-        i++;
-      }
-    }
-    createTbody(arr);
-  }
-}
+  // function search() {
+  //   let arr = data.slice(),
+  //     value = searchValue.value.toLowerCase();
+  //   for (let i = 0; i < arr.length; ) {
+  //     let isTrue = true;
+  //     for (let elem in arr[i]) {
+  //       if (arr[i][elem].toLowerCase().indexOf(value) > -1) {
+  //         isTrue = false;
+  //         break;
+  //       }
+  //     }
+  //     if (isTrue == true) {
+  //       arr.splice(i, 1);
+  //     } else {
+  //       i++;
+  //     }
+  //   }
+  //   createTbody(arr);
+  // }
+};
